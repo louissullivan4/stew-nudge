@@ -65,6 +65,24 @@ router.get('/:taskId', async (req, res) => {
 	}
 });
 
+// Get all tasks for a certain user
+router.get('/user/:uid', async (req, res) => {
+    try {
+        const { uid } = req.params;
+        const result = await pool.query('SELECT * FROM tasks WHERE uid = $1', [uid]);
+        if (result.rows.length === 0) {
+            logger.warn(`No tasks found for user with id ${uid}`);
+            res.status(404).json({ error: 'No tasks found for this user' });
+        } else {
+            logger.info('Tasks retrieved successfully for user', { userId: uid, tasksCount: result.rows.length });
+            res.json(result.rows);
+        }
+    } catch (err) {
+        logger.error('Error retrieving tasks for user', { userId: uid, error: err.message });
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // Update a task
 router.put('/:taskId', async (req, res) => {
 	try {
