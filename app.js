@@ -15,20 +15,20 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/api', apiRouter);
-    
+
 const startServer = async () => {
-    await startup();
-    app.listen(port, () => {
-        logger.info(`Server is running on port ${port}`);
-    });
+	await startup();
+	app.listen(port, () => {
+		logger.info(`Server is running on port ${port}`);
+	});
 };
 
 const shutdown = async () => {
-    await disconnectDatabase();
-    app.close(() => {
-        logger.info('HTTP server closed');
-        process.exit(0);
-    });
+	await disconnectDatabase();
+	app.close(() => {
+		logger.info('HTTP server closed');
+		process.exit(0);
+	});
 };
 process.on('SIGTERM', shutdown);
 process.on('SIGINT', shutdown);
