@@ -7,6 +7,7 @@
     "lint": "eslint .",
     "dev": "nodemon app.js",
     "test": "jest",
+    "validate": "swagger-cli validate openapi.yaml",
     "pretty": "prettier --write \"utils/**/*.js\" && prettier --write \"test/**/*.js\" && prettier --write \"routes/**/*.js\""
   },
   "dependencies": {
@@ -26,6 +27,7 @@
     "eslint-plugin-prettier": "^5.1.3",
     "globals": "^15.3.0",
     "nodemon": "^3.1.2",
+    "swagger-cli": "^4.0.4",
     "typescript-eslint": "^7.11.0"
   }
 }
